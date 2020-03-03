@@ -192,3 +192,4 @@ C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\bin\Debu
 C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\obj\Debug\netcoreapp3.1\TestingJobInterview.csproj.CopyComplete
+C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\obj\Debug\netcoreapp3.1\TestingJobInterview.csprojAssemblyReference.cache
