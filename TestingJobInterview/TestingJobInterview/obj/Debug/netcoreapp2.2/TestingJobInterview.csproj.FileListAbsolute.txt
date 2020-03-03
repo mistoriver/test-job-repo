@@ -11,3 +11,4 @@ C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\obj\Debu
 C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\obj\Debug\netcoreapp2.2\TestingJobInterview.AssemblyInfo.cs
 C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\obj\Debug\netcoreapp2.2\TestingJobInterview.dll
 C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\obj\Debug\netcoreapp2.2\TestingJobInterview.pdb
+C:\GitKrakenRepos\test-job-repo\TestingJobInterview\TestingJobInterview\obj\Debug\netcoreapp2.2\TestingJobInterview.csprojAssemblyReference.cache

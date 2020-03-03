@@ -5,24 +5,60 @@ using System.Text;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium;
 using TestingJobInterview.UI;
+using System.Linq;
 
 namespace TestingJobInterview
 {
     [TestFixture]
     public class JobIntSeleniumTests
     {
-        IWebDriver driver = new ChromeDriver(@"\TestingRest\bin\Debug\netcoreapp2.2");
+        IWebDriver driver;
         MsSearchPage SearchPage;
 
-        [Test]
-        public void SeleniumSearchTest()
+        [SetUp]
+        public void OnTestStart()
         {
-            SearchPage = new MsSearchPage(driver);
-
+            driver = new ChromeDriver(AppDomain.CurrentDomain.BaseDirectory);
             driver.Url = "https://docs.microsoft.com/ru-ru/";
-            SearchPage.SearchPanel.Set("LINQ\n");
-            //var a = SearchPage.Results.First();
+            SearchPage = new MsSearchPage(driver);
+        }
+
+        [TearDown]
+        public void OnTestEnd()
+        {
             driver.Close();
+        }
+
+        [Test]
+        public void SeleniumUpperSearchTest()
+        {
+            SearchPage.SearchPanel.Set("LINQ\n");
+            SearchPage.Results.ForEach(searchRes => Assert.IsTrue(
+                searchRes.Title.ToLower().Contains("linq") ||
+                searchRes.Description.ToLower().Contains("linq")
+                )
+            );
+        }
+        [Test]
+        public void SeleniumLowerSearchTest()
+        {
+            SearchPage.SearchPanel.Set("linq\n");
+            SearchPage.Results.ForEach(searchRes => Assert.IsTrue(
+                searchRes.Title.ToLower().Contains("linq") ||
+                searchRes.Description.ToLower().Contains("linq")
+                )
+            );
+        }
+        [Test]
+        public void SeleniumJumpingSearchTest()
+        {
+            SearchPage.SearchPanel.Set("lInQ\n");
+            var a = SearchPage.Results.First();
+            SearchPage.Results.ForEach(searchRes => Assert.IsTrue(
+                searchRes.Title.ToLower().Contains("linq") ||
+                searchRes.Description.ToLower().Contains("linq")
+                )
+            );
         }
     }
 }

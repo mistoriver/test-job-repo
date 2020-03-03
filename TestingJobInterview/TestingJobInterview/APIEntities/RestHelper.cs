@@ -18,6 +18,11 @@ namespace TestingJobInterview.APIEntities
             Configure("https://docs.microsoft.com/api",
                 new RestRequest($"search?search={searchString}&locale=ru-ru&%24top={resultCount}", Method.GET));
         }
+        public static void ConfigureSearch(string searchString, int skipCount=0, int resultCount = 25)
+        {
+            Configure("https://docs.microsoft.com/api",
+                new RestRequest($"search?search={searchString}&locale=ru-ru&%24skip={skipCount}&%24top={resultCount}", Method.GET));
+        }
 
         public static IRestResponse Execute()
         { 

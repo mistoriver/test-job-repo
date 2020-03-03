@@ -22,5 +22,12 @@ namespace TestingJobInterview.APIEntities
             }
             return results;
         }
+        public static string ConcatResponses(string firstResponse, string secResponse)
+        {
+            firstResponse = firstResponse.Substring(0, firstResponse.LastIndexOf(']'));
+            secResponse = secResponse.Substring(secResponse.IndexOf('[') + 1);
+            var res = firstResponse + "," + Environment.NewLine + secResponse;
+            return res;
+        }
     }
 }

@@ -15,8 +15,9 @@ namespace TestingJobInterview.UI
             get
             {
                 List<SearchResult> res = new List<SearchResult>();
-                new WebDriverWait(Driver, TimeSpan.FromSeconds(10))
-                    .Until(d => d.FindElement(By.XPath("//*[contains(@class,'searchResults')]//li")).Displayed);
+                var wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
+                wait.IgnoreExceptionTypes(typeof(NoSuchElementException));
+                wait.Until(d => d.FindElement(By.XPath("//*[contains(@class,'searchResults')]//li")).Displayed);
                 Driver.FindElements(By.XPath("//*[contains(@class,'searchResults')]//li")).ToList()
                     .ForEach(e => res.Add(new SearchResult(e)));
                 return res;
