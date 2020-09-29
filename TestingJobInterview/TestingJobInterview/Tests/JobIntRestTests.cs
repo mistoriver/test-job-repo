@@ -1,5 +1,4 @@
 ﻿using NUnit.Framework;
-using System;
 using TestingJobInterview.APIEntities;
 
 namespace TestingJobInterview
@@ -7,18 +6,36 @@ namespace TestingJobInterview
     [TestFixture]
     public class JobIntRestTests
     {
+        #region Самый толковый тест
+        [Test]
+        public void AnyLinqTest()
+        {
+            int resultCountNeedToTest = 500;
+
+            var results = Searcher.Search("LINQ", resultCountNeedToTest);
+
+            Assert.IsTrue(results.Count > 0);
+
+            results.ForEach(res => Assert.IsTrue(
+                res.Title.ToLower().Contains("linq") ||
+                res.Description.ToLower().Contains("linq")
+                )
+            );
+        }
+        #endregion
+        #region Не самые толковые тесты
         [Test]
         public void UpperLinqTest()
         {
             //API сайта отбивает запросы с top>25, поэтому пара стандартных проверок
-            RestHelper.ConfigureDefaultSearch("LINQ", 25);
+            RestSearchHelper.ConfigureDefaultSearch("LINQ", 25);
 
-            var response = RestHelper.Execute();
+            var response = RestSearchHelper.Execute();
 
             Assert.IsNotNull(response);
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
 
-            var results = DeserializeHelper.Deserialize(response.Content);
+            var results = ResponseHelper.Deserialize(response.Content);
 
             Assert.IsTrue(results.Count > 0);
 
@@ -31,14 +48,14 @@ namespace TestingJobInterview
         [Test]
         public void LowerLinqTest()
         {
-            RestHelper.ConfigureDefaultSearch("linq", 25);
+            RestSearchHelper.ConfigureDefaultSearch("linq", 25);
 
-            var response = RestHelper.Execute();
+            var response = RestSearchHelper.Execute();
 
             Assert.IsNotNull(response);
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
 
-            var results = DeserializeHelper.Deserialize(response.Content);
+            var results = ResponseHelper.Deserialize(response.Content);
 
             Assert.IsTrue(results.Count > 0);
 
@@ -51,14 +68,14 @@ namespace TestingJobInterview
         [Test]
         public void JumpingLinqTest()
         {
-            RestHelper.ConfigureDefaultSearch("lInQ", 25);
+            RestSearchHelper.ConfigureDefaultSearch("lInQ", 25);
 
-            var response = RestHelper.Execute();
+            var response = RestSearchHelper.Execute();
 
             Assert.IsNotNull(response);
             Assert.AreEqual(response.StatusCode, System.Net.HttpStatusCode.OK);
 
-            var results = DeserializeHelper.Deserialize(response.Content);
+            var results = ResponseHelper.Deserialize(response.Content);
 
             Assert.IsTrue(results.Count > 0);
 
@@ -71,22 +88,22 @@ namespace TestingJobInterview
         [Test]
         public void FiftyLinqTest()
         {
-            //А здесь я придумал, как сформировать 50 записей
-            RestHelper.ConfigureDefaultSearch("LINQ", 25);
+            //А здесь я придумал самый простой способ, как сформировать 50 записей
+            RestSearchHelper.ConfigureDefaultSearch("LINQ", 25);
 
-            var response = RestHelper.Execute();
+            var response = RestSearchHelper.Execute();
             
             Assert.IsNotNull(response);
             Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
 
 
-            RestHelper.ConfigureSearch("LINQ", 25, 25);
-            var secResponse = RestHelper.Execute();
+            RestSearchHelper.ConfigureSearch("LINQ", 25, 25);
+            var secResponse = RestSearchHelper.Execute();
 
             Assert.IsNotNull(secResponse);
             Assert.AreEqual(System.Net.HttpStatusCode.OK, secResponse.StatusCode);
 
-            var results = DeserializeHelper.Deserialize(DeserializeHelper.ConcatResponses(response.Content,secResponse.Content));
+            var results = ResponseHelper.Deserialize(ResponseHelper.ConcatResponses(response.Content,secResponse.Content));
 
             Assert.IsTrue(results.Count > 0);
 
@@ -96,5 +113,6 @@ namespace TestingJobInterview
                 )
             );
         }
+        #endregion
     }
 }
